@@ -1,4 +1,6 @@
 import styles from "./page.module.css";
+import TestTailwind from "./test-tailwind";
+import TailwindDemo from "./components/TailwindDemo";
 
 const dashboardTasks = [
   // Frontend
@@ -40,22 +42,35 @@ const groupedTasks = dashboardTasks.reduce((acc, task) => {
 
 export default function Home() {
   return (
-    <div className={styles.pageCustom}>
-      <h1 className={styles.title}>Project Feature Dashboard</h1>
-      <div className={styles.sectionGrid}>
-        {Object.entries(groupedTasks).map(([category, tasks]) => (
-          <section key={category} className={styles.section}>
-            <h2 className={styles.sectionTitle}>{category}</h2>
-            <div className={styles.grid}>
-              {tasks.map((task, idx) => (
-                <div className={styles.card} key={idx}>
-                  <div className={styles.feature}>{task.feature}</div>
-                  <div className={styles.description}>{task.description}</div>
-                </div>
-              ))}
-            </div>
-          </section>
-        ))}
+    <div>
+      {/* Tailwind CSS Demo Component */}
+      <div className="mb-8">
+        <TailwindDemo />
+      </div>
+      
+      {/* Tailwind CSS Test Component */}
+      <div className="mb-8">
+        <TestTailwind />
+      </div>
+      
+      {/* Original Dashboard */}
+      <div className={styles.pageCustom}>
+        <h1 className={styles.title}>Project Feature Dashboard</h1>
+        <div className={styles.sectionGrid}>
+          {Object.entries(groupedTasks).map(([category, tasks]) => (
+            <section key={category} className={styles.section}>
+              <h2 className={styles.sectionTitle}>{category}</h2>
+              <div className={styles.grid}>
+                {tasks.map((task, idx) => (
+                  <div className={styles.card} key={idx}>
+                    <div className={styles.feature}>{task.feature}</div>
+                    <div className={styles.description}>{task.description}</div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
       </div>
     </div>
   );
