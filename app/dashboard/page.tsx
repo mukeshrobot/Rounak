@@ -1,41 +1,42 @@
 "use client";
 import { useState } from "react";
-import styles from "../page.module.css";
-
-import Navbar from "../Navbar";
-import Link from "next/link";
-import Image from "next/image";
 
 const licenses = [
   {
     name: "AWS Cloud License",
     description: "Amazon Web Services cloud computing license for scalable infrastructure.",
-    price: 99
+    price: 99,
+    icon: "☁️"
   },
   {
     name: "GCP License",
     description: "Google Cloud Platform license for advanced analytics and hosting.",
-    price: 89
+    price: 89,
+    icon: "🔍"
   },
   {
     name: "Azure License",
     description: "Microsoft Azure license for enterprise-grade cloud solutions.",
-    price: 95
+    price: 95,
+    icon: "🪟"
   },
   {
     name: "Add Cart Cloud License",
     description: "E-commerce cloud platform license for online stores.",
-    price: 79
+    price: 79,
+    icon: "🛒"
   },
   {
     name: "Oracle Cloud License",
     description: "Oracle cloud license for robust database and business apps.",
-    price: 105
+    price: 105,
+    icon: "🗄️"
   },
   {
     name: "IBM Cloud License",
     description: "IBM cloud license for AI and hybrid cloud solutions.",
-    price: 92
+    price: 92,
+    icon: "🤖"
   }
 ];
 
@@ -80,51 +81,165 @@ export default function DashboardPage() {
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <div className={styles.ecomPage}>
-      <main className={styles.ecomMain}>
-        <div className={styles.ecomHeaderRow}>
-          <h1 className={styles.ecomTitle}>License Store</h1>
-          <div className={styles.ecomCartSummary}>
-            <span className={styles.ecomCartIcon}>🛒</span>
-            <span className={styles.ecomCartText}>{totalItems} item{totalItems !== 1 ? "s" : ""}</span>
-            <span className={styles.ecomCartTotal}>Total: ${total}</span>
-            {cart.length > 0 && (
-              <div style={{marginLeft: 18, display: 'flex', flexDirection: 'column', gap: 2}}>
-                {cart.map(item => (
-                  <div key={item.name} style={{display: 'flex', alignItems: 'center', gap: 8}}>
-                    <span style={{fontWeight: 500}}>{item.name}</span>
-                    <button onClick={() => decrementQty(item)} style={{margin: '0 2px', width: 22, height: 22, borderRadius: 4, border: '1px solid #e2e8f0', background: '#f6f8fa', cursor: 'pointer'}}>-</button>
-                    <span style={{minWidth: 18, textAlign: 'center'}}>{item.quantity}</span>
-                    <button onClick={() => incrementQty(item)} style={{margin: '0 2px', width: 22, height: 22, borderRadius: 4, border: '1px solid #e2e8f0', background: '#f6f8fa', cursor: 'pointer'}}>+</button>
-                    <button onClick={() => removeFromCart(item)} style={{marginLeft: 6, color: '#e53e3e', background: 'none', border: 'none', cursor: 'pointer'}}>Remove</button>
-                  </div>
-                ))}
-              </div>
-            )}
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 ">
+      {/* Header Section */}
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+          Project Feature Dashboard
+        </h1>
+        <p className="text-gray-600 dark:text-gray-400">
+          Manage your cloud licenses and track your projects
+        </p>
+      </div>
+
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Licenses</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-white">24</p>
+            </div>
+            <div className="p-3 bg-blue-100 dark:bg-blue-900 rounded-lg">
+              <span className="text-2xl">📊</span>
+            </div>
           </div>
         </div>
-        <h2 className={styles.ecomSectionTitle}>Available Licenses</h2>
-        <div className={styles.ecomGrid}>
+
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Active Projects</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-white">12</p>
+            </div>
+            <div className="p-3 bg-green-100 dark:bg-green-900 rounded-lg">
+              <span className="text-2xl">🚀</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Monthly Revenue</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-white">$45,230</p>
+            </div>
+            <div className="p-3 bg-purple-100 dark:bg-purple-900 rounded-lg">
+              <span className="text-2xl">💰</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Cart Items</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-white">{totalItems}</p>
+            </div>
+            <div className="p-3 bg-orange-100 dark:bg-orange-900 rounded-lg">
+              <span className="text-2xl">🛒</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Project Sections */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+        {/* Frontend Section */}
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+            <span className="text-blue-500">🎨</span>
+            Frontend
+          </h2>
+          <div className="space-y-4">
+            <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+              <h3 className="font-medium text-gray-900 dark:text-white mb-2">Folder Structure</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">UI, regex, Redux implementation</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Backend Section */}
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+            <span className="text-green-500">⚙️</span>
+            Backend
+          </h2>
+          <div className="space-y-4">
+            <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+              <h3 className="font-medium text-gray-900 dark:text-white mb-2">Folder Structure</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">MongoDB setup</p>
+            </div>
+            <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+              <h3 className="font-medium text-gray-900 dark:text-white mb-2">Zoho Connection</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Connectivity to backend</p>
+            </div>
+            <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+              <h3 className="font-medium text-gray-900 dark:text-white mb-2">Zoho Mock Data</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Mock data for login-based dashboard rendering</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* License Store Section */}
+      <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">License Store</h2>
+          {cart.length > 0 && (
+            <div className="flex items-center gap-4 bg-blue-50 dark:bg-blue-900/20 px-4 py-2 rounded-lg">
+              <span className="text-blue-600 dark:text-blue-400 font-medium">
+                🛒 {totalItems} item{totalItems !== 1 ? "s" : ""}
+              </span>
+              <span className="text-blue-600 dark:text-blue-400 font-bold">
+                Total: ${total}
+              </span>
+            </div>
+          )}
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {licenses.map((license, idx) => {
             const cartItem = cart.find(item => item.name === license.name);
             return (
-              <div className={styles.ecomCard} key={idx}>
-                <div className={styles.ecomCardTitle}>{license.name}</div>
-                <div className={styles.ecomCardDesc}>{license.description}</div>
-                <div className={styles.ecomCardPrice}>${license.price}</div>
+              <div key={idx} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 border border-gray-200 dark:border-gray-600 hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="text-2xl">{license.icon}</span>
+                  <h3 className="font-semibold text-gray-900 dark:text-white">{license.name}</h3>
+                </div>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{license.description}</p>
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-xl font-bold text-gray-900 dark:text-white">${license.price}</span>
+                </div>
+                
                 {cartItem ? (
-                  <div style={{display: 'flex', alignItems: 'center', gap: 8, width: '100%'}}>
-                    <button className={styles.ecomRemoveBtn} style={{flex: 1}} onClick={() => removeFromCart(license)}>
+                  <div className="flex items-center gap-2">
+                    <button 
+                      onClick={() => decrementQty(license)}
+                      className="w-8 h-8 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                    >
+                      -
+                    </button>
+                    <span className="flex-1 text-center font-semibold text-gray-900 dark:text-white">
+                      {cartItem.quantity}
+                    </span>
+                    <button 
+                      onClick={() => incrementQty(license)}
+                      className="w-8 h-8 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                    >
+                      +
+                    </button>
+                    <button 
+                      onClick={() => removeFromCart(license)}
+                      className="px-3 py-1 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                    >
                       Remove
                     </button>
-                    <button onClick={() => decrementQty(license)} style={{width: 32, height: 32, borderRadius: 6, border: '1px solid #e2e8f0', background: '#f6f8fa', cursor: 'pointer', fontWeight: 700, fontSize: 18}}>-</button>
-                    <span style={{minWidth: 22, textAlign: 'center', fontWeight: 600}}>{cartItem.quantity}</span>
-                    <button onClick={() => incrementQty(license)} style={{width: 32, height: 32, borderRadius: 6, border: '1px solid #e2e8f0', background: '#f6f8fa', cursor: 'pointer', fontWeight: 700, fontSize: 18}}>+</button>
                   </div>
                 ) : (
                   <button
-                    className={styles.ecomAddBtn}
                     onClick={() => addToCart(license)}
+                    className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
                   >
                     Add to Cart
                   </button>
@@ -133,7 +248,7 @@ export default function DashboardPage() {
             );
           })}
         </div>
-      </main>
+      </div>
     </div>
   );
 } 
